@@ -1,0 +1,64 @@
+{% extends 'inner-page.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-3">
+    <!-- Summary section with a title -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="text-center mb-3">Summary</h2>
+            <div class="user-query fw-bold">{{ user_query }}</div>
+            <div class="summary-text">
+                <!-- Assuming summary text is passed to the template -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Results -->
+    <div class="search-results-container">
+        {% if articles_data %}
+            <!-- Loop through each article and create a single card for each -->
+            {% for article in articles_data %}
+                <div class="card mb-4"> <!-- Use mb-4 for margin bottom -->
+                    <div class="row g-0"> <!-- Use g-0 to remove gutter -->
+                        <!-- Article Title and Publication Info -->
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ article.title }}</h5>
+                                <!-- Save Toggle Button -->
+                                <button class="save-toggle btn btn-outline-primary btn-sm"
+                                        data-paper-title="{{ article.title }}"
+                                        data-paper-url="{{ article.link }}"
+                                        data-research-question="{{ user_query }}">
+                                        Save
+                                </button>
+                                <div class="d-flex align-items-center mb-3">
+                                    <img src="{% static 'book.svg' %}" alt="Publication Icon" class="icon me-2">
+                                    <p class="card-text text-muted mb-0">{{ article.publication_info.summary }}</p>
+                                </div>
+                                {% if article.link %}
+                                    <a href="{{ article.link }}" class="card-link" target="_blank">Read more</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- Article Snippet -->
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <p class="card-text">{{ article.snippet }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% elif error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                No search performed yet.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

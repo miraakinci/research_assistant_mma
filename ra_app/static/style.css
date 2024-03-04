@@ -1,0 +1,66 @@
+.icon-class {
+  margin-right: 10px; /* Sağa doğru 10px boşluk ekler */
+  /* veya */
+  padding-right: 10px; /* Sağa doğru 10px padding ekler */
+}
+/* Ensure that all cards are full height within their column */
+.card {
+    display: flex;
+    flex-direction: column; /* Stack the child elements vertically */
+}
+
+/* Style for the card header where the icons and title will be */
+.card-header {
+    display: flex;
+    align-items: center; /* Aligns items vertically centered */
+    gap: 0.5rem; /* Adds a gap between the items */
+}
+
+/* Icon styling to ensure they are properly sized and aligned */
+.icon {
+    width: 24px; /* Adjust the size as needed */
+    height: 24px; /* Adjust the size as needed */
+    margin-right: 0.5rem; /* Adds a margin to the right of the icon */
+}
+
+/* Ensure the card body takes up all available space so that all cards are equal height */
+.card-body {
+    flex: 1; /* Allows the card body to expand and fill the space */
+    display: flex;
+    flex-direction: column; /* Align content in a column */
+}
+
+/* Style for the publication info to be less prominent */
+.text-muted {
+    font-size: 0.9rem; /* Smaller font size for less emphasis */
+    margin-bottom: 0.5rem; /* Adds some space below the publication info */
+}
+
+/* Style for the card text where the snippet will be */
+.card-text {
+    margin-top: auto; /* Pushes the snippet to the bottom of the card */
+    display: flex;
+    align-items: center; /* Center the text next to the title */
+}
+
+/* Style for the card title and link */
+.card-title a {
+    display: block; /* Makes the link fill the space, easier to click */
+    color: inherit; /* Inherits the color from the parent, for consistent styling */
+    text-decoration: none; /* Removes underline from links */
+}
+
+.card-title {
+    flex-grow: 1; /* Ensures the title uses all available space */
+}
+
+/* Media query for smaller screens, if cards should be stacked */
+@media (max-width: 767px) {
+    .card-header {
+        flex-direction: column; /* Stack the title and icons on top of each other */
+    }
+
+    .card-text {
+        order: -1; /* Move snippet above the publication info */
+    }
+}
