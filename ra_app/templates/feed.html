@@ -2,24 +2,75 @@
 
 {% block content %}
 
-<div class="container">
-  <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-title text-center"></h2>
-            <div style="text-align: center; margin-top: 20px;">
-                <form action="{% url 'search_results' %}" method="POST">
-                        {% csrf_token %}
-                        <input type="text" name="query" placeholder="Enter your research question here..." style="width: 80%; height: 50px; font-size: 20px;">
-                        <button type="submit" class="btn btn-primary" style="height: 50px;">Search</button>
-                </form>
-            </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div id="error-message-container" style="color: red; display: none;"></div>
+
+
+<!-- Search Container başlangıcı -->
+<div id="search-container" style="width: 100%; padding: 10px 0;">
+    <form id="search-form" action="{% url 'search_results' %}" method="POST" style="text-align: center;">
+        {% csrf_token %}
+        <input type="text" id="query-input" name="query" placeholder="Enter your research question here..." style="width: 80%; height: 50px; font-size: 20px;">
+        <button type="submit" class="btn btn-primary" style="height: 50px;">Search</button>
+    </form>
+</div>
+<!-- Search Container bitişi -->
+
+
+
+<!-- Spinner Container başlangıcı -->
+<div id="spinner-container" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1050;">
+                    <div class="spinner-grow text-primary" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                    <div class="spinner-grow text-secondary" role="status">
+                      <span class="sr-only"></span>
+                    </div>
+                    <div class="spinner-grow text-success" role="status">
+                      <span class="sr-only"></span>
+                    </div>
+                    <div class="spinner-grow text-danger" role="status">
+                      <span class="sr-only"></span>
+                    </div>
+                    <div class="spinner-grow text-warning" role="status">
+                      <span class="sr-only"></span>
+                    </div>
+                    <div class="spinner-grow text-info" role="status">
+                      <span class="sr-only"></span>
+                    </div>
+                    <div class="spinner-grow text-light" role="status">
+                      <span class="sr-only"></span>
+                    </div>
+                    <div class="spinner-grow text-dark" role="status">
+                      <span class="sr-only"></span>
+                    </div>
 </div>
 
-
 {% endblock %}
+
+
+{% block scripts %}
+  {{ block.super }}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var searchForm = document.getElementById('search-form');
+    var spinnerContainer = document.getElementById('spinner-container');
+    var queryInput = document.getElementById('query-input');
+    var errorMessageContainer = document.getElementById('error-message-container');
+    var maxLength = 500;
+
+    searchForm.addEventListener('submit', function(event) {
+        var queryLength = queryInput.value.length;
+        if (queryLength > maxLength) {
+            event.preventDefault();
+            errorMessageContainer.textContent = `Error: Query must be less than ${maxLength} characters.`;
+            errorMessageContainer.style.display = 'block';
+            spinnerContainer.style.display = 'none';
+        } else {
+            spinnerContainer.style.display = 'block';
+            errorMessageContainer.style.display = 'none';
+        }
+    });
+});
+</script>
+{% endblock %}
+

@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ra_app'
+    'ra_app.apps.RaAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -120,14 +120,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    # Diğer statik dosya dizinleri
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SERP_API_KEY = '57068287ca9794d9df059dcb513b83b56e88df5369f1f14aeb2c2bbd94384de6'
+#SERP_API_KEY = '57068287ca9794d9df059dcb513b83b56e88df5369f1f14aeb2c2bbd94384de6'
+SS_API_KEY = 'qMIcR5gUyh1H3qiVJsPBw9J87q8vCm8o7bFgMM0F'

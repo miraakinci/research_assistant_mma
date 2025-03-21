@@ -1,0 +1,82 @@
+{% extends 'inner-page.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="search-results-container">
+            <!-- Loop through each article and create a single card for each -->
+            {% for paper in favourite_papers %}
+                    <div class="card mb-4" id="paper-card-{{ paper.article.id }}">
+                    <div class="row g-0"> <!-- Use g-0 to remove gutter -->
+                        <!-- Article Title and Publication Info -->
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ paper.article.title }}</h5>
+                                <button class="unsave-article btn btn-outline-primary btn-sm" data-article-id="{{ paper.article.id }}">Unsave</button>
+                                <div class="d-flex align-items-center mb-3">
+                                    <img src="{% static 'book.svg' %}" alt="Publication Icon" class="icon me-2">
+                                    <p class="card-text text-muted mb-0">{{ paper.article.publication_info }}</p>
+                                </div>
+                                {% if paper.link %}
+                                    <a href="{{ paper.article.link }}" class="card-link" target="_blank">Read more</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- Article Snippet -->
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <p class="card-text">{{ paper.article.abstract }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const unsaveButtons = document.querySelectorAll('.unsave-article');
+
+    unsaveButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const paperId = this.getAttribute('data-article-id');
+            console.log('Attempting to unsave paper with ID:', paperId);
+
+            fetch(`/unsave-paper/${paperId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+            }).then(response => {
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return response.json();
+            }).then(data => {
+                console.log('Response received:', data);
+                if (data.message === 'Paper unsaved successfully') {
+                    const cardId = 'paper-card-' + paperId;
+                    const cardElement = document.getElementById(cardId);
+                    cardElement?.remove(); // Use optional chaining to avoid errors if no element found
+                    console.log('Card removed successfully:', cardId);
+                } else {
+                    alert('Error unsaving article: ' + data.message);
+                }
+            }).catch(error => {
+                console.error('Error during fetch operation:', error);
+                alert('Error processing your request. Please try again.');
+            });
+        });
+    });
+});
+
+</script>
+{% endblock %}
+
+
+

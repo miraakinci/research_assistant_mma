@@ -54,6 +54,7 @@
     flex-grow: 1; /* Ensures the title uses all available space */
 }
 
+
 /* Media query for smaller screens, if cards should be stacked */
 @media (max-width: 767px) {
     .card-header {

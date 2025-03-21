@@ -20,11 +20,23 @@ class User(AbstractUser):
     bio = models.TextField(max_length=200, blank=True)
 
 
-class FavouritePaper(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+class Article(models.Model):
     title = models.CharField(max_length=255)
-    url = models.URLField(max_length=200)
-    research_question = models.CharField(max_length=255)
+    authors = models.CharField(max_length=255, default='Unknown Author')
+    link = models.URLField(max_length=200)
+    publication_info = models.CharField(max_length=255, blank=True, null=True)
+    abstract = models.TextField(blank=True, null=True)
+    favourited_by = models.ManyToManyField(User, related_name="favourite_articles", blank=True)
 
     def __str__(self):
         return self.title
+
+
+class FavouritePaper(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="favourites", null=True, blank=True)
+
+    def __str__(self):
+        if self.article:
+            return self.article.title
+        return "Unknown Article"

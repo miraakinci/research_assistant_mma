@@ -1,0 +1,30 @@
+{% extends 'inner-page.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    #codeconduct-container {
+        max-width: 80%; /* Adjust width as necessary */
+        margin: auto; /* Center the container */
+        text-align: center; /* Center text */
+    }
+
+    #codeconduct-header {
+        text-align: center; /* Center the header */
+        margin-bottom: 20px; /* Add some space below the header */
+    }
+
+    p {
+        text-align: justify; /* Justify the paragraph for better line distribution */
+        line-height: 1.6; /* Adjust line height for better readability */
+    }
+</style>
+
+<div id="codeconduct-container">
+    <h2 id="codeconduct-header">Contributor Code of Conduct</h2>
+    <p>Research Assistant is committed to providing a friendly, safe and welcoming environment for all participants. We expect all participants to abide by this Code of Conduct in all community interactions and events.
+    The development of this project adheres to the Code of Conduct established by the British Computing Society, prioritising the protection of public health, privacy, security, and the welfare of individuals and the environment.
+    The lawful rights of third parties have been taken into consideration throughout the development process. Furthermore, risks were regularly viewed and mitigating actions were revised accordingly. Underpinning the dedication to ethical practices and social responsibility in the use of information technology, inclusivity of all sectors of society were taken into consideration.
+    </p>
+</div>
+{% endblock content %}
