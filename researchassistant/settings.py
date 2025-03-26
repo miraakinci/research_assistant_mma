@@ -19,8 +19,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#*2jxqb2ice^ql17=psxu2pn$zge75tj#(9lq$lofjqawvtimb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -126,5 +124,3 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#SERP_API_KEY = '57068287ca9794d9df059dcb513b83b56e88df5369f1f14aeb2c2bbd94384de6'
-SS_API_KEY = 'qMIcR5gUyh1H3qiVJsPBw9J87q8vCm8o7bFgMM0F'
