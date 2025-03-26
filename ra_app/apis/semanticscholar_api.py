@@ -2,12 +2,13 @@ from django.conf import settings
 import requests
 import pandas as pd
 import time
+from decouple import config
 
 
 class SemanticScholar(object):
     def __init__(self):
         self.base_url = "https://api.semanticscholar.org/graph/v1"
-        self.headers = {"x-api-key": settings.SS_API_KEY}
+        self.headers = {"x-api-key": config("API_KEY")}
         self.common_fields = "title,authors,year,venue,abstract,tldr,url,openAccessPdf"
 
     def send_request(self, method, endpoint, **kwargs):
